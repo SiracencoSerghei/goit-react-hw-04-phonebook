@@ -1,0 +1,26 @@
+
+ 
+
+.Container {
+  margin: 0, auto;
+  padding: 50px;
+}
+
+.Section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto 20px;
+  padding: 50px;
+  max-width: 500px;
+  background-color: rgb(175, 199, 243);
+  border-radius: 10px;
+}
+input {
+  font-size: 18px;
+  padding: 10px;
+  border: 2px solid rgb(46, 7, 241);
+  border-radius: 4px;
+}

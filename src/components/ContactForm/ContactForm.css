@@ -1,0 +1,15 @@
+.formWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonForm {
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  background-color: lightgray;
+  border: 2px solid rgb(46, 7, 241);
+  border-radius: 4px;
+  font-size: 18px;
+  padding: 10px;
+}

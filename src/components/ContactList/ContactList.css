@@ -1,0 +1,32 @@
+.ContactsList {
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.ContactListItem {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: lightgray;
+  border: 2px solid rgb(46, 7, 241);
+  border-radius: 4px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.ContactListItem:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+.ContactsList-button {
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  background-color: lightgray;
+  border: 2px solid rgb(46, 7, 241);
+  border-radius: 4px;
+  font-size: 18px;
+  padding: 10px;
+}

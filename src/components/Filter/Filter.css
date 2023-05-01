@@ -1,0 +1,8 @@
+.Filter {
+    margin: 0 auto 20px;
+    width: 100%;
+    background-color: lightgray;
+    border: 2px solid rgb(46, 7, 241);
+    border-radius: 4px;
+    padding: 10px;
+  }
