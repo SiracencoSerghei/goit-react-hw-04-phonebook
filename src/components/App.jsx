@@ -1,87 +1,76 @@
+import React, { useState, useEffect } from 'react';
 
-import { React, Component } from "react";
 import { nanoid } from 'nanoid'; // npm i nanoid
 import ContactForm from "./ContactForm";
 import Filter from "./Filter";
 import ContactList from "./ContactList";
 import './App.css';
 
-export default class App extends Component {
 
-  state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
-    filter: '',
-  }
+export default function App() {
+  const initialContacts = [
+    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+  ];
+  const [contacts, setContacts] = useState(initialContacts);
+  const [filter, setFilter] = useState('');
 
-  addContact = (name, number) => {
+  const addContact = (name, number) => {
     const newContact = {
       id: nanoid(),
       name,
       number,
     };
-    this.setState(prevState => {
-      return {
-        contacts: [...prevState.contacts, newContact],
-      }
-    });
-  }
+    setContacts((prevContacts) => [...prevContacts, newContact]);
+  };
 
-  handleChangeFilter = filter => {
-    this.setState({filter});
-  }
+  const handleChangeFilter = (filter) => {
+    setFilter(filter);
+  };
 
-  getFilteredContacts = () => {
-    const {contacts, filter} = this.state;
-    return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
-  }
+  const getFilteredContacts = () => {
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
 
-  handleRemove = contactId => {
-    this.setState(prevState => {
-      return {
-        contacts: prevState.contacts.filter(({id}) => id !== contactId)
-      }
-    })
-  }
-  // getSnapshotBeforeUpdate(prevProps, prevState, snapshot) {
-  //   console.log(prevProps);
-  //   console.log(prevState);
-  //   console.log(snapshot);
-  // }
-  componentDidMount() {
+  const handleRemove = (contactId) => {
+    setContacts((prevContacts) =>
+      prevContacts.filter(({ id }) => id !== contactId)
+    );
+  };
+
+  useEffect(() => {
     const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
-      if(parsedContacts) {
-      this.setState({contacts: parsedContacts});
+    if (parsedContacts) {
+      setContacts(parsedContacts);
     }
-    
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }, []);
+  useEffect(()=>{
+    if(contacts !== prevContacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts))
     }
-  }
-
-
-  render() {
-    const {contacts, filter} = this.state;
-    return(
-      <>
-        <div className="Container">
-          <section title="Phonebook" className="Section">
-            <h1>Phonebook</h1>
-            <ContactForm contacts={contacts} onAddContact={this.addContact}/>
-          </section>
-          <section title="Contacts" className="Section">
-            <h2>Contacts</h2>
-            <Filter value={filter} onChangeFilter={this.handleChangeFilter}/>
-            <ContactList filteredContacts={this.getFilteredContacts()} onRemove={this.handleRemove} />
-          </section>
-        </div>
-      </>
-    )
-  }
+  }, []);
+ 
+  return (
+    <>
+      <div className="Container">
+        <section title="Phonebook" className="Section">
+          <h1>Phonebook</h1>
+          <ContactForm contacts={contacts} onAddContact={addContact} />
+        </section>
+        <section title="Contacts" className="Section">
+          <h2>Contacts</h2>
+          <Filter value={filter} onChangeFilter={handleChangeFilter} />
+          <ContactList
+            filteredContacts={getFilteredContacts()}
+            onRemove={handleRemove}
+          />
+        </section>
+      </div>
+    </>
+  );
 }
+
