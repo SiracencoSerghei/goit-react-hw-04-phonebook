@@ -60,9 +60,9 @@ export default function App() {
         </section>
         <section title="Contacts" className="Section">
           <h2>Contacts</h2>
-          <Filter value={filter} onChangeFilter={handleChangeFilter} />
+          <Filter onChangeFilter={handleChangeFilter} />
           <ContactList
-            filteredContacts={getFilteredContacts()}
+            getFilteredContacts={getFilteredContacts}
             onRemove={handleRemove}
           />
         </section>
