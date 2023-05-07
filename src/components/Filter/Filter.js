@@ -1,25 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Filter.css'
 
-export default class Filter extends React.Component {
-  static defaultProps = {
-    value: '',
-  }
-
-  static propTypes = {
-    value: PropTypes.string,
-    onChangeFilter: PropTypes.func.isRequired,
-  }
-
-  render() {
-    const { value, onChangeFilter } = this.props;
-
-    return (
+const Filter = (value, onChangeFilter) => {
+  
+  const [inputValue, setInputValue] = useState('');
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    onChangeFilter(newValue);
+  };
+  
+        return (
       <div className="Filter">
         <p>Find contacts by name</p>
-        <input type="text" value={value} onChange={e => onChangeFilter(e.target.value)}/>
+        <input type="text" value={inputValue} onChange={handleChange}/>
       </div>
     );
   }
-}
+  export default Filter;
+
+Filter.propTypes = {
+  value: PropTypes.string,
+  onChangeFilter: PropTypes.func.isRequired,
+};
